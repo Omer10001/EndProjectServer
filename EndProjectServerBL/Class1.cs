@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EndProjectBL
+namespace EndProjectServerBL
 {
     public class Class1
     {
