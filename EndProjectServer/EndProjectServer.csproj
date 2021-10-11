@@ -15,6 +15,7 @@
   <ItemGroup>
     <Folder Include="DataBaseScripts\" />
     <Folder Include="DataBaseScripts\" />
+    <Folder Include="DTO\" />
     <Folder Include="Wwwroot\" />
   </ItemGroup>
 
