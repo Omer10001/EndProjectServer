@@ -9,7 +9,7 @@ using System.IO;
 
 namespace EndProjectServer.Controller
 {
-    [Route("api/[controller]")]
+    [Route("EndProjectAPI")]
     [ApiController]
     public class EndProjectController : ControllerBase
     {
@@ -22,9 +22,9 @@ namespace EndProjectServer.Controller
         #endregion
         [Route("Login")]
         [HttpGet]
-        public User Login([FromQuery] string email, [FromQuery] string pass)
+        public User Login([FromQuery] string Email, [FromQuery] string Password)
         {
-            User user = context.Login(email, pass);
+            User user = context.Login(Email,Password);
 
             //Check user name and password
             if (user != null)

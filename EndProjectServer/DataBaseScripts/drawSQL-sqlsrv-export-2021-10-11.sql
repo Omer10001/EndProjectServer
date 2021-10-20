@@ -1,3 +1,4 @@
+
 Use EndProjectDB
 
 CREATE TABLE "User"(
@@ -101,3 +102,9 @@ ALTER TABLE
     "TagsInPost" ADD CONSTRAINT "tagsinpost_postid_foreign" FOREIGN KEY("PostID") REFERENCES "Post"("ID");
 ALTER TABLE
     "Review" ADD CONSTRAINT "review_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
+
+	
+	
+	
+	
+	Insert Into "User" VALUES ('a','b','c','11.10.2021', '0', '11.10.2021');
