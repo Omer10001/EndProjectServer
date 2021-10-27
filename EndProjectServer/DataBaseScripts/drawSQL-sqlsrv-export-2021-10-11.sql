@@ -1,4 +1,5 @@
-
+create DATABASE EndProjectDB
+go
 Use EndProjectDB
 
 CREATE TABLE "User"(

@@ -43,6 +43,31 @@ namespace EndProjectServer.Controller
                 return null;
             }
         }
+        [Route("SignUp")]
+        [HttpPost]
+        public void SignUp([FromBody] User user)
+        {
+            try
+            {
+                User checkEmail = context.Users.Where(x => x.Email == user.Email).FirstOrDefault();
+                if (checkEmail != null)
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Conflict;
+                    return;
+                }
+                context.CreateUser(user);
+                HttpContext.Session.SetObject("user", user);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+
+        }
     }
+
 
 }

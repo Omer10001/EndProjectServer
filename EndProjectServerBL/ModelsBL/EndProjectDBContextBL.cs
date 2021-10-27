@@ -27,6 +27,12 @@ namespace EndProjectServerBL.Models
                  }
                
             }
+        public void CreateUser(User user)
+        {
+           
+            this.Users.Add(user);
+            this.SaveChanges();
         }
+    }
     
 }
