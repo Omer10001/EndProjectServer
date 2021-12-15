@@ -73,7 +73,7 @@ namespace EndProjectServer.Controller
         {
             try
             {
-                List<Post> posts = context.GetPosts();
+                List<Post> posts = context.GetPostsByDate();
                 if (posts != null)
                 {
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
