@@ -67,6 +67,31 @@ namespace EndProjectServer.Controller
             }
 
         }
+        [Route("MainPage")]
+        [HttpGet]
+        public List<Post> GetPosts()
+        {
+            try
+            {
+                List<Post> posts = context.GetPostsByDate();
+                if (posts != null)
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return posts;
+
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                    return null;
+                }
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
     }
 
 

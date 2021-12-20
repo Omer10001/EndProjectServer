@@ -19,13 +19,26 @@ namespace EndProjectServerBL.Models
                 User user = this.Users
                    .Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
 
-                return user;
+                     return user;
+                 }
+                 catch(Exception e)
+                 {
+                      throw new Exception("Could not Login. error retreiving Data", e);
+                 }
+               
+            }
+        public List<Post> GetPostsByDate()
+        {
+            try
+            {
+                List<Post> posts = (List<Post>)this.Posts.Include(x => x.Comments).Include(x => x.Topic).Include(x => x.TagsInPosts).Include(x => x.User).OrderBy(x => x.TimeCreated);
+
+                return posts;
             }
             catch (Exception e)
             {
-                throw new Exception("Could not Login. error retreiving Data", e);
+                throw new Exception("error retreiving Data", e);
             }
-
         }
         public void CreateUser(User user)
         {
