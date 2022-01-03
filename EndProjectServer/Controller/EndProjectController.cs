@@ -67,13 +67,28 @@ namespace EndProjectServer.Controller
             }
 
         }
+        [Route("Logout")]
+        [HttpGet]
+        public void Logout()
+        {
+            try
+            {
+                HttpContext.Session.SetObject("user", null);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
         [Route("MainPage")]
         [HttpGet]
         public List<Post> GetPosts()
         {
             try
             {
-                List<Post> posts = context.GetPostsByDate();
+                 List<Post> posts = context.GetPostsByDate();
                 if (posts != null)
                 {
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
