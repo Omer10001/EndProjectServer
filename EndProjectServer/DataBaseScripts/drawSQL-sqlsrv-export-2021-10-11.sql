@@ -108,4 +108,4 @@ ALTER TABLE
 	
 	
 	
-	Insert Into "User" VALUES ('a','b','c','11.10.2021', '0', '11.10.2021');
+	Insert Into "User" VALUES ('a','b','c','11.10.2021', '1', '11.10.2021');

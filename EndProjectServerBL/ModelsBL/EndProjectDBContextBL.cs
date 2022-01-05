@@ -46,6 +46,11 @@ namespace EndProjectServerBL.Models
             this.Users.Add(user);
             this.SaveChanges();
         }
+        public void ChangePassword(string newPassword, User user)
+        {
+            this.Users.Where(x => x.Email == user.Email).FirstOrDefault().Password = newPassword;
+            this.SaveChanges();
+        }
     }
     
 }

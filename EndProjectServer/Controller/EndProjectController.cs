@@ -56,7 +56,7 @@ namespace EndProjectServer.Controller
                     return;
                 }
                 context.CreateUser(user);
-                HttpContext.Session.SetObject("user", user);
+                //HttpContext.Session.SetObject("theUser", user);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
             }
@@ -73,7 +73,7 @@ namespace EndProjectServer.Controller
         {
             try
             {
-                HttpContext.Session.SetObject("user", null);
+                HttpContext.Session.SetObject("theUser", null);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             }
             catch
@@ -81,6 +81,22 @@ namespace EndProjectServer.Controller
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 return;
             }
+        }
+        [Route("ChangePassword")]
+        [HttpPost]
+        public void ChangePassword([FromBody] string newPassword)
+        {
+            try 
+            {
+                User user = HttpContext.Session.GetObject<User>("theUser");
+                context.ChangePassword(newPassword, user);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+            }
+            
         }
         [Route("MainPage")]
         [HttpGet]
