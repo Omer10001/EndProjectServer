@@ -87,7 +87,7 @@ namespace EndProjectServer.Controller
         public void ChangePassword([FromBody] string newPassword)
         {
             try 
-            {
+            {//need to verify if the user is the same using DTO
                 User user = HttpContext.Session.GetObject<User>("theUser");
                 context.ChangePassword(newPassword, user);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
@@ -121,6 +121,22 @@ namespace EndProjectServer.Controller
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return null;
+            }
+        }
+        [Route("AddTag")]
+        [HttpPost]
+        public void AddTag([FromBody] Tag tag)
+        {
+            try
+            {
+                context.CreateTag(tag);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
             }
         }
     }

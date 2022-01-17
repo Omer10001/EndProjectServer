@@ -51,6 +51,11 @@ namespace EndProjectServerBL.Models
             this.Users.Where(x => x.Email == user.Email).FirstOrDefault().Password = newPassword;
             this.SaveChanges();
         }
+        public void CreateTag(Tag t)
+        {
+            this.Tags.Add(t);
+            this.SaveChanges();
+        }
     }
     
 }

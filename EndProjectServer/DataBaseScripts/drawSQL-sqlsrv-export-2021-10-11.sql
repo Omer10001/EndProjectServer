@@ -22,7 +22,7 @@ ALTER TABLE
     "Topic" ADD CONSTRAINT "topic_id_primary" PRIMARY KEY("ID");
 CREATE TABLE "Tag"(
     "ID" INT Identity NOT NULL,
-    "PostId" INT NOT NULL,
+   
     "Name" NVARCHAR(255) NOT NULL
 );
 ALTER TABLE
