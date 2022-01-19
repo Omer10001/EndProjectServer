@@ -56,6 +56,11 @@ namespace EndProjectServerBL.Models
             this.Tags.Add(t);
             this.SaveChanges();
         }
+        public void CreateGame(Topic t)
+        {
+            this.Topics.Add(t);
+            this.SaveChanges();
+        }
     }
     
 }

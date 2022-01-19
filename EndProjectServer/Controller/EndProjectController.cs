@@ -139,6 +139,22 @@ namespace EndProjectServer.Controller
                 return;
             }
         }
+        [Route("AddGame")]
+        [HttpPost]
+        public void AddGame([FromBody] Topic game)
+        {
+            try
+            {
+                context.CreateGame(game);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
     }
 
 
