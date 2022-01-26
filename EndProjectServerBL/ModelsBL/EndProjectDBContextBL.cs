@@ -61,6 +61,19 @@ namespace EndProjectServerBL.Models
             this.Topics.Add(t);
             this.SaveChanges();
         }
+        public List<User> GetUsers()
+        {
+            try
+            {
+                List<User> users = (List<User>)this.Users.OrderBy(x => x.Id);
+
+                return users;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
+        }
     }
     
 }

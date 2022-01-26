@@ -149,10 +149,44 @@ namespace EndProjectServer.Controller
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
             }
-            catch
+            catch(Exception e)
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 return;
+            }
+        }
+        [Route("GetUsers")]
+        [HttpGet]
+        public List<User> GetUsers()
+        {
+            try
+            {
+                if(HttpContext.Session.GetObject<User>("theUser").IsAdmin)
+                {
+                    List<User> users = context.GetUsers();
+                    if (users != null)
+                    {
+                        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                        return users;
+
+                    }
+                    else
+                    {
+                        Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                        return null;
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
+                   
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
             }
         }
     }
