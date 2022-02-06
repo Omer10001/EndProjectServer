@@ -43,8 +43,8 @@ CREATE TABLE "Post"(
     "TopicID" INT NOT NULL,
     "UserID" INT NOT NULL,
     "NumOfLikes" INT NOT NULL,
-    "Text" NVARCHAR(255) NOT NULL,
-    "Image" NVARCHAR(255) NOT NULL,
+    "Text" NVARCHAR(255),
+    "Image" NVARCHAR(255) ,
     "Title" NVARCHAR(255) NOT NULL,
     "TimeCreated" DATETIME NOT NULL
 );

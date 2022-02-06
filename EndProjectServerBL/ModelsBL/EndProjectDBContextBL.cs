@@ -74,6 +74,19 @@ namespace EndProjectServerBL.Models
                 throw new Exception("error retreiving Data", e);
             }
         }
+        public List<Topic> GetTopics()
+        {
+            try
+            {
+                List<Topic> topics = (List<Topic>)this.Topics.OrderBy(x => x.Name).ToList();
+
+                return topics;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
+        }
     }
     
 }

@@ -24,7 +24,7 @@ namespace EndProjectServer.Controller
         [HttpGet]
         public User Login([FromQuery] string Email, [FromQuery] string Password)
         {
-            User user = context.Login(Email,Password);
+            User user = context.Login(Email, Password);
 
             //Check user name and password
             if (user != null)
@@ -86,7 +86,7 @@ namespace EndProjectServer.Controller
         [HttpPost]
         public void ChangePassword([FromBody] string newPassword)
         {
-            try 
+            try
             {//need to verify if the user is the same using DTO
                 User user = HttpContext.Session.GetObject<User>("theUser");
                 context.ChangePassword(newPassword, user);
@@ -96,7 +96,7 @@ namespace EndProjectServer.Controller
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
             }
-            
+
         }
         [Route("MainPage")]
         [HttpGet]
@@ -104,7 +104,7 @@ namespace EndProjectServer.Controller
         {
             try
             {
-                 List<Post> posts = context.GetPostsByDate();
+                List<Post> posts = context.GetPostsByDate();
                 if (posts != null)
                 {
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
@@ -149,7 +149,7 @@ namespace EndProjectServer.Controller
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 return;
@@ -161,7 +161,7 @@ namespace EndProjectServer.Controller
         {
             try
             {
-                if(HttpContext.Session.GetObject<User>("theUser").IsAdmin)
+                if (HttpContext.Session.GetObject<User>("theUser").IsAdmin)
                 {
                     List<User> users = context.GetUsers();
                     if (users != null)
@@ -181,7 +181,32 @@ namespace EndProjectServer.Controller
                     Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                     return null;
                 }
-                   
+
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
+        [Route("GetTopics")]
+        [HttpGet]
+        public List<Topic> GetTopics()
+        {
+            try
+            {
+                List<Topic> topics = context.GetTopics();
+                if (topics != null)
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return topics;
+
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                    return null;
+                }
             }
             catch
             {
