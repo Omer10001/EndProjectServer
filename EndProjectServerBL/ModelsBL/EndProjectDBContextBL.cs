@@ -61,6 +61,11 @@ namespace EndProjectServerBL.Models
             this.Topics.Add(t);
             this.SaveChanges();
         }
+        public void CreatePost(Post p)
+        {
+            this.Posts.Add(p);
+            this.SaveChanges();
+        }
         public List<User> GetUsers()
         {
             try
