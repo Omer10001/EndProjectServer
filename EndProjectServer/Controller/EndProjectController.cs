@@ -230,6 +230,12 @@ namespace EndProjectServer.Controller
                 return;
             }
         }
+        [Route("LikePost")]
+        [HttpPost]
+        public void LikePost([FromBody] Post p)
+        {
+           
+        }
     }
 
 
