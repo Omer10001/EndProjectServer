@@ -24,7 +24,7 @@ namespace EndProjectServer.Controller
         [HttpGet]
         public User Login([FromQuery] string Email, [FromQuery] string Password)
         {
-            User user = context.Login(Email,Password);
+            User user = context.Login(Email, Password);
 
             //Check user name and password
             if (user != null)
@@ -56,7 +56,7 @@ namespace EndProjectServer.Controller
                     return;
                 }
                 context.CreateUser(user);
-                HttpContext.Session.SetObject("user", user);
+                //HttpContext.Session.SetObject("theUser", user);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
             }
@@ -64,6 +64,37 @@ namespace EndProjectServer.Controller
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 return;
+            }
+
+        }
+        [Route("Logout")]
+        [HttpGet]
+        public void Logout()
+        {
+            try
+            {
+                HttpContext.Session.SetObject("theUser", null);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
+        [Route("ChangePassword")]
+        [HttpPost]
+        public void ChangePassword([FromBody] string newPassword)
+        {
+            try
+            {//need to verify if the user is the same using DTO
+                User user = HttpContext.Session.GetObject<User>("theUser");
+                context.ChangePassword(newPassword, user);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
             }
 
         }
@@ -91,6 +122,119 @@ namespace EndProjectServer.Controller
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return null;
             }
+        }
+        [Route("AddTag")]
+        [HttpPost]
+        public void AddTag([FromBody] Tag tag)
+        {
+            try
+            {
+                context.CreateTag(tag);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
+        [Route("AddGame")]
+        [HttpPost]
+        public void AddGame([FromBody] Topic game)
+        {
+            try
+            {
+                context.CreateGame(game);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
+        [Route("GetUsers")]
+        [HttpGet]
+        public List<User> GetUsers()
+        {
+            try
+            {
+                if (HttpContext.Session.GetObject<User>("theUser").IsAdmin)
+                {
+                    List<User> users = context.GetUsers();
+                    if (users != null)
+                    {
+                        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                        return users;
+
+                    }
+                    else
+                    {
+                        Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                        return null;
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
+
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
+        [Route("GetTopics")]
+        [HttpGet]
+        public List<Topic> GetTopics()
+        {
+            try
+            {
+                List<Topic> topics = context.GetTopics();
+                if (topics != null)
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return topics;
+
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                    return null;
+                }
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
+        [Route("CreatePost")]
+        [HttpPost]
+        public void AddGame([FromBody] Post p)
+        {
+            try
+            {
+                context.CreatePost(p);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
+        [Route("LikePost")]
+        [HttpPost]
+        public void LikePost([FromBody] Post p)
+        {
+           
         }
     }
 

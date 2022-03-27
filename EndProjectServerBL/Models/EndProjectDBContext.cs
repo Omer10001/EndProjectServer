@@ -106,13 +106,9 @@ namespace EndProjectServerBL.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Image)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Image).HasMaxLength(255);
 
-                entity.Property(e => e.Text)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Text).HasMaxLength(255);
 
                 entity.Property(e => e.TimeCreated).HasColumnType("datetime");
 

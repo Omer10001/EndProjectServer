@@ -31,8 +31,8 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Post> posts = (List<Post>)this.Posts.Include(x => x.Comments).Include(x => x.Topic).Include(x => x.TagsInPosts).Include(x => x.User).OrderBy(x => x.TimeCreated);
-                
+                List<Post> posts = (List<Post>)this.Posts.Include(x => x.Comments).Include(x => x.Topic).Include(x => x.TagsInPosts).Include(x => x.User).OrderBy(x => x.TimeCreated).ToList();
+
                 return posts;
             }
             catch (Exception e)
@@ -45,6 +45,52 @@ namespace EndProjectServerBL.Models
 
             this.Users.Add(user);
             this.SaveChanges();
+        }
+        public void ChangePassword(string newPassword, User user)
+        {
+            this.Users.Where(x => x.Email == user.Email).FirstOrDefault().Password = newPassword;
+            this.SaveChanges();
+        }
+        public void CreateTag(Tag t)
+        {
+            this.Tags.Add(t);
+            this.SaveChanges();
+        }
+        public void CreateGame(Topic t)
+        {
+            this.Topics.Add(t);
+            this.SaveChanges();
+        }
+        public void CreatePost(Post p)
+        {
+            this.Posts.Add(p);
+            this.SaveChanges();
+        }
+        public List<User> GetUsers()
+        {
+            try
+            {
+                List<User> users = (List<User>)this.Users.OrderBy(x => x.Id);
+
+                return users;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
+        }
+        public List<Topic> GetTopics()
+        {
+            try
+            {
+                List<Topic> topics = (List<Topic>)this.Topics.OrderBy(x => x.Name).ToList();
+
+                return topics;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
         }
     }
     

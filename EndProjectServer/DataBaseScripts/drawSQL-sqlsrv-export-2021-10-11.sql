@@ -22,7 +22,7 @@ ALTER TABLE
     "Topic" ADD CONSTRAINT "topic_id_primary" PRIMARY KEY("ID");
 CREATE TABLE "Tag"(
     "ID" INT Identity NOT NULL,
-    "PostId" INT NOT NULL,
+   
     "Name" NVARCHAR(255) NOT NULL
 );
 ALTER TABLE
@@ -43,8 +43,8 @@ CREATE TABLE "Post"(
     "TopicID" INT NOT NULL,
     "UserID" INT NOT NULL,
     "NumOfLikes" INT NOT NULL,
-    "Text" NVARCHAR(255) NOT NULL,
-    "Image" NVARCHAR(255) NOT NULL,
+    "Text" NVARCHAR(255),
+    "Image" NVARCHAR(255) ,
     "Title" NVARCHAR(255) NOT NULL,
     "TimeCreated" DATETIME NOT NULL
 );
@@ -108,4 +108,4 @@ ALTER TABLE
 	
 	
 	
-	Insert Into "User" VALUES ('a','b','c','11.10.2021', '0', '11.10.2021');
+	Insert Into "User" VALUES ('a','b','c','11.10.2021', '1', '11.10.2021');
