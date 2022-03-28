@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EndProjectServer.DTO;
 using EndProjectServerBL.Models;
 using System.IO;
 
@@ -100,11 +101,17 @@ namespace EndProjectServer.Controller
         }
         [Route("MainPage")]
         [HttpGet]
-        public List<Post> GetPosts()
+        public List<PostDTO> GetPosts()
         {
             try
             {
                 List<Post> posts = context.GetPostsByDate();
+                List<PostDTO> postDTOs = new List<PostDTO>();
+                foreach(Post p in posts)
+                {
+                    postDTOs.Add(new PostDTO { Comments = p.Comments, Id = p.Id, Image = p.Image, })
+                }
+
                 if (posts != null)
                 {
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
