@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -31,8 +32,9 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Post> posts = (List<Post>)this.Posts.Include(x => x.Comments).Include(x => x.Topic).Include(x => x.TagsInPosts).Include(x => x.User).OrderBy(x => x.TimeCreated).ToList();
-
+                List<Post> posts = (List<Post>)this.Posts.Include(x => x.Comments).Include(x => x.Topic).Include(x => x.TagsInPosts).Include(x => x.User).OrderByDescending(x => x.TimeCreated).ToList();
+    
+                
                 return posts;
             }
             catch (Exception e)
@@ -40,6 +42,32 @@ namespace EndProjectServerBL.Models
                 throw new Exception("error retreiving Data", e);
             }
         }
+        public List<LikesInPost> GetLikesInPost()
+        {
+            try
+            {
+                List<LikesInPost> likesInPosts = this.LikesInPosts.ToList();
+
+
+                return likesInPosts;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
+        }
+        public void UpdateLikePost(Post p, LikesInPost l, User u)
+        {
+            try
+            {
+                this.Posts.Update(this.Posts.Where(x =>x.Id == p.Id).FirstOrDefault()).
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
+            
         public void CreateUser(User user)
         {
 

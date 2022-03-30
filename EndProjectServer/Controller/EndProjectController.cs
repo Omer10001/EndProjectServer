@@ -106,16 +106,18 @@ namespace EndProjectServer.Controller
             try
             {
                 List<Post> posts = context.GetPostsByDate();
+                List<LikesInPost> likesInPosts = context.GetLikesInPost();
                 List<PostDTO> postDTOs = new List<PostDTO>();
                 foreach(Post p in posts)
                 {
-                    postDTOs.Add(new PostDTO { Comments = p.Comments, Id = p.Id, Image = p.Image, })
+                    LikesInPost likeInPost = likesInPosts.Where(x => x.PostId == p.Id && x.UserId == HttpContext.Session.GetObject<User>("theUser").Id).FirstOrDefault();
+                    postDTOs.Add(new PostDTO { Post = p, LikeInPost = likeInPost });
                 }
 
-                if (posts != null)
+                if (postDTOs != null)
                 {
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                    return posts;
+                    return postDTOs;
 
                 }
                 else
@@ -239,9 +241,16 @@ namespace EndProjectServer.Controller
         }
         [Route("LikePost")]
         [HttpPost]
-        public void LikePost([FromBody] Post p)
+        public void LikePost([FromBody] PostDTO p)
         {
-           
+            try
+            {
+
+            }
+            catch
+            {
+
+            }
         }
     }
 
