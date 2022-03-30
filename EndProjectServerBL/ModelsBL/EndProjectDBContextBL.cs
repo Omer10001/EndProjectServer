@@ -61,7 +61,15 @@ namespace EndProjectServerBL.Models
             try
             {
                 this.Posts.Update(p);
-                this.LikesInPosts.Update(l);
+
+                //if (this.LikesInPosts.Where(x => x.PostId == l.PostId && x.UserId == l.UserId).FirstOrDefault() == null)
+                //{
+                //    LikesInPosts.Add(l);
+                //}
+                //else
+                //{
+                    this.LikesInPosts.Update(l);
+                //}
                 this.SaveChanges();
             }
             catch(Exception e)
