@@ -56,11 +56,13 @@ namespace EndProjectServerBL.Models
                 throw new Exception("error retreiving Data", e);
             }
         }
-        public void UpdateLikePost(Post p, LikesInPost l, User u)
+        public void UpdateLikePost(Post p, LikesInPost l)
         {
             try
             {
-                this.Posts.Update(this.Posts.Where(x =>x.Id == p.Id).FirstOrDefault()).
+                this.Posts.Update(p);
+                this.LikesInPosts.Update(l);
+                this.SaveChanges();
             }
             catch(Exception e)
             {

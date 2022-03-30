@@ -111,6 +111,11 @@ namespace EndProjectServer.Controller
                 foreach(Post p in posts)
                 {
                     LikesInPost likeInPost = likesInPosts.Where(x => x.PostId == p.Id && x.UserId == HttpContext.Session.GetObject<User>("theUser").Id).FirstOrDefault();
+                    if(likeInPost ==null)
+                    {
+                        likeInPost = new LikesInPost { PostId = p.Id, UserId = HttpContext.Session.GetObject<User>("theUser").Id, IsDisliked =false, IsLiked = fals };
+                        context.UpdateLikePost(p,likeInPost);
+                    }
                     postDTOs.Add(new PostDTO { Post = p, LikeInPost = likeInPost });
                 }
 
@@ -245,11 +250,14 @@ namespace EndProjectServer.Controller
         {
             try
             {
-
+                context.UpdateLikePost(p.Post, p.LikeInPost);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
             }
-            catch
+            catch (Exception e)
             {
-
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
             }
         }
     }
