@@ -114,7 +114,8 @@ namespace EndProjectServer.Controller
                     if(likeInPost ==null)
                     {
                         likeInPost = new LikesInPost { PostId = p.Id, UserId = HttpContext.Session.GetObject<User>("theUser").Id, IsDisliked =false, IsLiked = false };
-                        context.UpdateLikePost(p,likeInPost);
+                        p.LikesInPosts.Add(likeInPost);
+                        context.UpdateLikePost(p);
                     }
                     postDTOs.Add(new PostDTO { Post = p, LikeInPost = likeInPost });
                 }
@@ -250,7 +251,8 @@ namespace EndProjectServer.Controller
         {
             try
             {
-                context.UpdateLikePost(p.Post, p.LikeInPost);
+                
+                context.UpdateLikePost(p.Post);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return true;
             }

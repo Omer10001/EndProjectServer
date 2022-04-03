@@ -10,6 +10,7 @@ namespace EndProjectServerBL.Models
         public Post()
         {
             Comments = new HashSet<Comment>();
+            LikesInPosts = new HashSet<LikesInPost>();
             TagsInPosts = new HashSet<TagsInPost>();
         }
 
@@ -25,6 +26,7 @@ namespace EndProjectServerBL.Models
         public virtual Topic Topic { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<LikesInPost> LikesInPosts { get; set; }
         public virtual ICollection<TagsInPost> TagsInPosts { get; set; }
     }
 }

@@ -90,14 +90,25 @@ namespace EndProjectServerBL.Models
 
             modelBuilder.Entity<LikesInPost>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.PostId })
-                    .HasName("likesinpost_userid_primary");
-
                 entity.ToTable("LikesInPost");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.PostId).HasColumnName("PostID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.PostId).HasColumnName("PostID");
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.LikesInPosts)
+                    .HasForeignKey(d => d.PostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LikesInPost_Post");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.LikesInPosts)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LikesInPost_User");
             });
 
             modelBuilder.Entity<Post>(entity =>

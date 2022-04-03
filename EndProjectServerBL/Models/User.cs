@@ -10,6 +10,7 @@ namespace EndProjectServerBL.Models
         public User()
         {
             Comments = new HashSet<Comment>();
+            LikesInPosts = new HashSet<LikesInPost>();
             Posts = new HashSet<Post>();
             Reviews = new HashSet<Review>();
         }
@@ -23,6 +24,7 @@ namespace EndProjectServerBL.Models
         public DateTime BirthDate { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<LikesInPost> LikesInPosts { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
     }

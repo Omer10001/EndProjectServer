@@ -77,13 +77,14 @@ ALTER TABLE
     "LikesInComment" ADD CONSTRAINT "likesincomment_userid_primary" PRIMARY KEY("UserID","CommentID");
 
 CREATE TABLE "LikesInPost"(
+"ID" INT IDENTITY,
     "UserID" INT NOT NULL,
     "PostID" INT NOT NULL,
     "IsLiked" BIT NOT NULL,
     "IsDisliked" BIT NOT NULL
 );
 ALTER TABLE
-    "LikesInPost" ADD CONSTRAINT "likesinpost_userid_primary" PRIMARY KEY("UserID", "PostID");
+    "LikesInPost" ADD CONSTRAINT "likesinpost_id_primary" PRIMARY KEY("ID");
 
 ALTER TABLE
     "Post" ADD CONSTRAINT "post_topicid_foreign" FOREIGN KEY("TopicID") REFERENCES "Topic"("ID");
@@ -103,6 +104,10 @@ ALTER TABLE
     "TagsInPost" ADD CONSTRAINT "tagsinpost_postid_foreign" FOREIGN KEY("PostID") REFERENCES "Post"("ID");
 ALTER TABLE
     "Review" ADD CONSTRAINT "review_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
+    ALTER TABLE
+    "LikesInPost" ADD CONSTRAINT "likesinpost_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
+    ALTER TABLE
+    "LikesInPost" ADD CONSTRAINT "likesinpost_postid_foreign" FOREIGN KEY("PostID") REFERENCES "Post"("ID");
 
 	
 	

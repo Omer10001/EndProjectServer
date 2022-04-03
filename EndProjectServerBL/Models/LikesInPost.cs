@@ -11,5 +11,9 @@ namespace EndProjectServerBL.Models
         public int PostId { get; set; }
         public bool IsLiked { get; set; }
         public bool IsDisliked { get; set; }
+        public int Id { get; set; }
+
+        public virtual Post Post { get; set; }
+        public virtual User User { get; set; }
     }
 }
