@@ -170,6 +170,22 @@ namespace EndProjectServer.Controller
                 return;
             }
         }
+        [Route("AddComment")]
+        [HttpPost]
+        public void AddGame([FromBody] Comment comment)
+        {
+            try
+            {
+                context.AddComment(comment);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
         [Route("GetUsers")]
         [HttpGet]
         public List<User> GetUsers()
@@ -215,6 +231,31 @@ namespace EndProjectServer.Controller
                 {
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                     return topics;
+
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                    return null;
+                }
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
+        [Route("GetReviews")]
+        [HttpGet]
+        public List<Review> GetReviews()
+        {
+            try
+            {
+                List<Review> reviews = context.GetReviews();
+                if (reviews != null)
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return reviews;
 
                 }
                 else

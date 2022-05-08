@@ -100,6 +100,11 @@ namespace EndProjectServerBL.Models
             this.Topics.Add(t);
             this.SaveChanges();
         }
+        public void AddComment(Comment c)
+        {
+            this.Comments.Add(c);
+            this.SaveChanges();
+        }
         public void CreatePost(Post p)
         {
             this.Posts.Add(p);
@@ -122,9 +127,22 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Topic> topics = (List<Topic>)this.Topics.OrderBy(x => x.Name).ToList();
+                List<Topic> topics = (List<Topic>)this.Topics.Include(x=>x.Reviews).OrderBy(x => x.Name).ToList();
 
                 return topics;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
+        }
+        public List<Review> GetReviews()
+        {
+            try
+            {
+                List<Review> reviews = (List<Review>)this.Reviews.ToList();
+
+                return reviews;
             }
             catch (Exception e)
             {
