@@ -149,6 +149,19 @@ namespace EndProjectServerBL.Models
                 throw new Exception("error retreiving Data", e);
             }
         }
+        public List<Comment> GetComments()
+        {
+            try
+            {
+                List<Comment> comments = (List<Comment>)this.Comments.ToList();
+
+                return comments;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
+        }
     }
     
 }

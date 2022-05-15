@@ -270,6 +270,31 @@ namespace EndProjectServer.Controller
                 return null;
             }
         }
+        [Route("GetComments")]
+        [HttpGet]
+        public List<Comment> GetComments()
+        {
+            try
+            {
+                List<Comment> comments = context.GetComments();
+                if (comments != null)
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return comments;
+
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                    return null;
+                }
+            }
+            catch
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
         [Route("CreatePost")]
         [HttpPost]
         public void AddGame([FromBody] Post p)
