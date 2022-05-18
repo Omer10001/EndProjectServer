@@ -105,6 +105,11 @@ namespace EndProjectServerBL.Models
             this.Comments.Add(c);
             this.SaveChanges();
         }
+        public void AddReview(Review r)
+        {
+            this.Reviews.Add(r);
+            this.SaveChanges();
+        }
         public void CreatePost(Post p)
         {
             this.Posts.Add(p);

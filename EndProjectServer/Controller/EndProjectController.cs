@@ -172,11 +172,27 @@ namespace EndProjectServer.Controller
         }
         [Route("AddComment")]
         [HttpPost]
-        public void AddGame([FromBody] Comment comment)
+        public void AddComment([FromBody] Comment comment)
         {
             try
             {
                 context.AddComment(comment);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return;
+            }
+        }
+        [Route("AddReview")]
+        [HttpPost]
+        public void AddReview([FromBody] Review review)
+        {
+            try
+            {
+                context.AddReview(review);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
             }
@@ -327,6 +343,39 @@ namespace EndProjectServer.Controller
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 return false;
             }
+        }
+        [Route("UploadImage")]
+        [HttpPost]
+
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            User user = HttpContext.Session.GetObject<User>("theUser");
+            //Check if user logged in and its ID is the same as the contact user ID
+            if (user != null)
+            {
+                if (file == null)
+                {
+                    return BadRequest();
+                }
+
+                try
+                {
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", file.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+
+                    return Ok(new { length = file.Length, name = file.FileName });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return BadRequest();
+                }
+            }
+            return Forbid();
         }
     }
 
