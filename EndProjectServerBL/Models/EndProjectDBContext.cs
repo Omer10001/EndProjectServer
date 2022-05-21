@@ -38,7 +38,7 @@ namespace EndProjectServerBL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Comment>(entity =>
             {
@@ -52,7 +52,7 @@ namespace EndProjectServerBL.Models
 
                 entity.Property(e => e.Text)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasColumnType("text");
 
                 entity.Property(e => e.TimeCreated).HasColumnType("datetime");
 
@@ -78,14 +78,25 @@ namespace EndProjectServerBL.Models
 
             modelBuilder.Entity<LikesInComment>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.CommentId })
-                    .HasName("likesincomment_userid_primary");
-
                 entity.ToTable("LikesInComment");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CommentId).HasColumnName("CommentID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.CommentId).HasColumnName("CommentID");
+                entity.HasOne(d => d.Comment)
+                    .WithMany(p => p.LikesInComments)
+                    .HasForeignKey(d => d.CommentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("likesincomment_commentid_foreign");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.LikesInComments)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("likesincoment_userid_foreign");
             });
 
             modelBuilder.Entity<LikesInPost>(entity =>
@@ -102,13 +113,13 @@ namespace EndProjectServerBL.Models
                     .WithMany(p => p.LikesInPosts)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_LikesInPost_Post");
+                    .HasConstraintName("likesinpost_postid_foreign");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.LikesInPosts)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_LikesInPost_User");
+                    .HasConstraintName("likesinpost_userid_foreign");
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -119,7 +130,7 @@ namespace EndProjectServerBL.Models
 
                 entity.Property(e => e.Image).HasMaxLength(255);
 
-                entity.Property(e => e.Text).HasMaxLength(255);
+                entity.Property(e => e.Text).HasColumnType("text");
 
                 entity.Property(e => e.TimeCreated).HasColumnType("datetime");
 
@@ -152,7 +163,7 @@ namespace EndProjectServerBL.Models
 
                 entity.Property(e => e.Text)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasColumnType("text");
 
                 entity.Property(e => e.TimeCreated).HasColumnType("datetime");
 
@@ -216,6 +227,8 @@ namespace EndProjectServerBL.Models
                 entity.Property(e => e.AboutText)
                     .IsRequired()
                     .HasMaxLength(255);
+
+                entity.Property(e => e.Image).HasMaxLength(255);
 
                 entity.Property(e => e.Name)
                     .IsRequired()

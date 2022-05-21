@@ -15,6 +15,7 @@ namespace EndProjectServerBL.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Image { get; set; }
         public string AboutText { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }

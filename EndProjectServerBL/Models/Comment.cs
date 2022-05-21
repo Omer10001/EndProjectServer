@@ -10,6 +10,7 @@ namespace EndProjectServerBL.Models
         public Comment()
         {
             InverseRepliedTo = new HashSet<Comment>();
+            LikesInComments = new HashSet<LikesInComment>();
         }
 
         public int Id { get; set; }
@@ -24,5 +25,6 @@ namespace EndProjectServerBL.Models
         public virtual Comment RepliedTo { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> InverseRepliedTo { get; set; }
+        public virtual ICollection<LikesInComment> LikesInComments { get; set; }
     }
 }

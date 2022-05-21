@@ -16,6 +16,7 @@ ALTER TABLE
 CREATE TABLE "Topic"(
     "ID" INT Identity NOT NULL,
     "Name" NVARCHAR(255) NOT NULL,
+    "Image" NVARCHAR(255),
     "AboutText" NVARCHAR(255) NOT NULL
 );
 ALTER TABLE
@@ -33,7 +34,7 @@ CREATE TABLE "Comment"(
     "RepliedToID" INT NULL,
     "UserID" INT NOT NULL,
     "NumOfLikes" INT NOT NULL,
-    "Text" NVARCHAR(255) NOT NULL,
+    "Text" TEXT NOT NULL,
     "TimeCreated" DATETIME NOT NULL
 );
 ALTER TABLE
@@ -43,7 +44,7 @@ CREATE TABLE "Post"(
     "TopicID" INT NOT NULL,
     "UserID" INT NOT NULL,
     "NumOfLikes" INT NOT NULL,
-    "Text" NVARCHAR(255),
+    "Text" TEXT,
     "Image" NVARCHAR(255) ,
     "Title" NVARCHAR(255) NOT NULL,
     "TimeCreated" DATETIME NOT NULL
@@ -62,19 +63,20 @@ CREATE TABLE "Review"(
     "TopicID" INT NOT NULL,
     "Score" INT NOT NULL,
     "UserID" INT NOT NULL,
-    "Text" NVARCHAR(255) NOT NULL,
+    "Text" TEXT NOT NULL,
     "TimeCreated" DATETIME NOT NULL
 );
 ALTER TABLE
     "Review" ADD CONSTRAINT "review_id_primary" PRIMARY KEY("ID");
 CREATE TABLE "LikesInComment"(
+"ID" INT IDENTITY,
     "UserID" INT NOT NULL,
     "CommentID" INT NOT NULL,
     "IsLiked" BIT NOT NULL,
     "IsDisliked" BIT NOT NULL
 );
 ALTER TABLE
-    "LikesInComment" ADD CONSTRAINT "likesincomment_userid_primary" PRIMARY KEY("UserID","CommentID");
+    "LikesInComment" ADD CONSTRAINT "likesincomment_userid_primary" PRIMARY KEY("ID");
 
 CREATE TABLE "LikesInPost"(
 "ID" INT IDENTITY,
@@ -108,6 +110,10 @@ ALTER TABLE
     "LikesInPost" ADD CONSTRAINT "likesinpost_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
     ALTER TABLE
     "LikesInPost" ADD CONSTRAINT "likesinpost_postid_foreign" FOREIGN KEY("PostID") REFERENCES "Post"("ID");
+     ALTER TABLE
+    "LikesInComment" ADD CONSTRAINT "likesincoment_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
+    ALTER TABLE
+    "LikesInComment" ADD CONSTRAINT "likesincomment_commentid_foreign" FOREIGN KEY("CommentID") REFERENCES "Comment"("ID");
 
 	
 	

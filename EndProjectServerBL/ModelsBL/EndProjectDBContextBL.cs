@@ -56,6 +56,20 @@ namespace EndProjectServerBL.Models
                 throw new Exception("error retreiving Data", e);
             }
         }
+        public List<LikesInComment> GetLikesInComment()
+        {
+            try
+            {
+                List<LikesInComment> likesInComments = this.LikesInComments.ToList();
+
+
+                return likesInComments;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("error retreiving Data", e);
+            }
+        }
         public void UpdateLikePost(Post p)
         {
             try
@@ -69,6 +83,23 @@ namespace EndProjectServerBL.Models
                 this.SaveChanges();
             }
             catch(Exception e)
+            {
+
+            }
+        }
+        public void UpdateLikeComment(Comment c)
+        {
+            try
+            {
+                this.Comments.Update(c);
+
+
+
+
+
+                this.SaveChanges();
+            }
+            catch (Exception e)
             {
 
             }

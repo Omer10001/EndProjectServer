@@ -288,15 +288,29 @@ namespace EndProjectServer.Controller
         }
         [Route("GetComments")]
         [HttpGet]
-        public List<Comment> GetComments()
+        public List<CommentDTO> GetComments()
         {
             try
             {
                 List<Comment> comments = context.GetComments();
-                if (comments != null)
+                List<LikesInComment> likesInComments = context.GetLikesInComment();
+                List<CommentDTO> commentDTOs = new List<CommentDTO>();
+                foreach (Comment c in comments)
+                {
+                    LikesInComment likeInComment = likesInComments.Where(x => x.CommentId == c.Id && x.UserId == HttpContext.Session.GetObject<User>("theUser").Id).FirstOrDefault();
+                    if (likeInComment == null)//maybe useless
+                    {
+                        likeInComment = new LikesInComment { CommentId = c.Id, UserId = HttpContext.Session.GetObject<User>("theUser").Id, IsDisliked = false, IsLiked = false };
+                        c.LikesInComments.Add(likeInComment);
+                        context.UpdateLikeComment(c);
+                    }
+                    commentDTOs.Add(new CommentDTO { Comment = c, LikeInComment = likeInComment });
+                }
+
+                if (commentDTOs != null)
                 {
                     Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                    return comments;
+                    return commentDTOs;
 
                 }
                 else
@@ -335,6 +349,23 @@ namespace EndProjectServer.Controller
             {
                 
                 context.UpdateLikePost(p.Post);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return false;
+            }
+        }
+        [Route("LikeComment")]
+        [HttpPost]
+        public bool LikeComment([FromBody] CommentDTO c)
+        {
+            try
+            {
+
+                context.UpdateLikeComment(c.Comment);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return true;
             }
