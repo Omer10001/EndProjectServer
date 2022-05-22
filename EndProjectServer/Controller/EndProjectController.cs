@@ -57,7 +57,7 @@ namespace EndProjectServer.Controller
                     return;
                 }
                 context.CreateUser(user);
-                //HttpContext.Session.SetObject("theUser", user);
+               
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
             }
@@ -88,7 +88,7 @@ namespace EndProjectServer.Controller
         public void ChangePassword([FromBody] string newPassword)
         {
             try
-            {//need to verify if the user is the same using DTO
+            {
                 User user = HttpContext.Session.GetObject<User>("theUser");
                 context.ChangePassword(newPassword, user);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;

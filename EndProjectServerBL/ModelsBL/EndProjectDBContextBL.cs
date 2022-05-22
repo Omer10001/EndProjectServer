@@ -189,7 +189,7 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Comment> comments = (List<Comment>)this.Comments.ToList();
+                List<Comment> comments = (List<Comment>)this.Comments.Include(x=>x.User).ToList();
 
                 return comments;
             }
