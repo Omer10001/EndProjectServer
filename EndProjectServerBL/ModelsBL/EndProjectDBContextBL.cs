@@ -176,7 +176,7 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Review> reviews = (List<Review>)this.Reviews.ToList();
+                List<Review> reviews = (List<Review>)this.Reviews.Include(x => x.User).OrderBy(x => x.TimeCreated).ToList();
 
                 return reviews;
             }
@@ -189,7 +189,7 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Comment> comments = (List<Comment>)this.Comments.Include(x=>x.User).ToList();
+                List<Comment> comments = (List<Comment>)this.Comments.Include(x=>x.User).OrderBy(x => x.TimeCreated).ToList();
 
                 return comments;
             }
