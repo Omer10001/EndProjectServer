@@ -32,7 +32,7 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Post> posts = (List<Post>)this.Posts.Include(x => x.Comments).Include(x => x.Topic).Include(x => x.TagsInPosts).Include(x => x.User).OrderByDescending(x => x.TimeCreated).ToList();
+                List<Post> posts = (List<Post>)this.Posts.Include(x => x.Comments).Include(x => x.Topic).Include(x => x.User).OrderByDescending(x => x.TimeCreated).ToList();
     
                 
                 return posts;
@@ -121,11 +121,7 @@ namespace EndProjectServerBL.Models
             this.Users.Where(x => x.Email == user.Email).FirstOrDefault().Password = newPassword;
             this.SaveChanges();
         }
-        public void CreateTag(Tag t)
-        {
-            this.Tags.Add(t);
-            this.SaveChanges();
-        }
+       
         public void CreateGame(Topic t)
         {
             this.Topics.Add(t);
@@ -196,6 +192,19 @@ namespace EndProjectServerBL.Models
             catch (Exception e)
             {
                 throw new Exception("error retreiving Data", e);
+            }
+        }
+        public bool UpdateUser(User u)
+        {
+            try
+            {
+                this.Users.Update(u);
+                this.SaveChanges();
+                return true;
+            }
+            catch( Exception e)
+            {
+                return false;
             }
         }
     }

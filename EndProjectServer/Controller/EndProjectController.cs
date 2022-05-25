@@ -138,22 +138,7 @@ namespace EndProjectServer.Controller
                 return null;
             }
         }
-        [Route("AddTag")]
-        [HttpPost]
-        public void AddTag([FromBody] Tag tag)
-        {
-            try
-            {
-                context.CreateTag(tag);
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return;
-            }
-            catch
-            {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
-                return;
-            }
-        }
+        
         [Route("AddGame")]
         [HttpPost]
         public void AddGame([FromBody] Topic game)
@@ -370,6 +355,25 @@ namespace EndProjectServer.Controller
                 return true;
             }
             catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return false;
+            }
+        }
+        [Route("UpdateUser")]
+        [HttpPost]
+        public bool UpdateUser([FromBody] User u)
+        {
+            try
+            {
+                if (HttpContext.Session.GetObject<User>("theUser").IsAdmin != true)
+                    return false;
+                context.UpdateUser(u);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return true;
+
+            }
+            catch(Exception e)
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 return false;

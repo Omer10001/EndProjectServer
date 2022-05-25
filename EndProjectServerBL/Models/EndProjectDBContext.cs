@@ -22,8 +22,6 @@ namespace EndProjectServerBL.Models
         public virtual DbSet<LikesInPost> LikesInPosts { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<TagsInPost> TagsInPosts { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -38,7 +36,7 @@ namespace EndProjectServerBL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
 
             modelBuilder.Entity<Comment>(entity =>
             {
@@ -128,8 +126,6 @@ namespace EndProjectServerBL.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Image).HasMaxLength(255);
-
                 entity.Property(e => e.Text).HasColumnType("text");
 
                 entity.Property(e => e.TimeCreated).HasColumnType("datetime");
@@ -161,6 +157,8 @@ namespace EndProjectServerBL.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.Score).HasColumnType("decimal(18, 0)");
+
                 entity.Property(e => e.Text)
                     .IsRequired()
                     .HasColumnType("text");
@@ -182,40 +180,6 @@ namespace EndProjectServerBL.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("review_userid_foreign");
-            });
-
-            modelBuilder.Entity<Tag>(entity =>
-            {
-                entity.ToTable("Tag");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(255);
-            });
-
-            modelBuilder.Entity<TagsInPost>(entity =>
-            {
-                entity.ToTable("TagsInPost");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.PostId).HasColumnName("PostID");
-
-                entity.Property(e => e.TagId).HasColumnName("TagID");
-
-                entity.HasOne(d => d.Post)
-                    .WithMany(p => p.TagsInPosts)
-                    .HasForeignKey(d => d.PostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("tagsinpost_postid_foreign");
-
-                entity.HasOne(d => d.Tag)
-                    .WithMany(p => p.TagsInPosts)
-                    .HasForeignKey(d => d.TagId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("tagsinpost_tagid_foreign");
             });
 
             modelBuilder.Entity<Topic>(entity =>

@@ -22,6 +22,7 @@ namespace EndProjectServerBL.Models
         public string Password { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsBanned { get; set; }
         public DateTime BirthDate { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }

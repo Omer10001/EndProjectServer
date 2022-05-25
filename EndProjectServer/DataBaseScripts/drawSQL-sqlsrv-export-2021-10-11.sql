@@ -50,7 +50,7 @@ ALTER TABLE
 CREATE TABLE "Review"(
     "ID" INT Identity NOT NULL,
     "TopicID" INT NOT NULL,
-    "Score" INT NOT NULL,
+    "Score" DECIMAL NOT NULL,
     "UserID" INT NOT NULL,
     "Text" TEXT NOT NULL,
     "TimeCreated" DATETIME NOT NULL
@@ -106,4 +106,4 @@ ALTER TABLE
 	
 	
 	
-	Insert Into "User" VALUES ('a','b','c','11.10.2021', '1', '11.10.2021');
+	Insert Into "User" VALUES ('a','b','c','11.10.2021', '1','0', '11.10.2021');
