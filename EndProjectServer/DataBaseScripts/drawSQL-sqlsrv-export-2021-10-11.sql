@@ -9,6 +9,7 @@ CREATE TABLE "User"(
     "Password" NVARCHAR(255) NOT NULL,
     "DateCreated" DATETIME NOT NULL,
     "IsAdmin" BIT NOT NULL,
+    "IsBanned" BIT NOT NULL,
     "BirthDate" DATE NOT NULL
 );
 ALTER TABLE
@@ -21,13 +22,7 @@ CREATE TABLE "Topic"(
 );
 ALTER TABLE
     "Topic" ADD CONSTRAINT "topic_id_primary" PRIMARY KEY("ID");
-CREATE TABLE "Tag"(
-    "ID" INT Identity NOT NULL,
-   
-    "Name" NVARCHAR(255) NOT NULL
-);
-ALTER TABLE
-    "Tag" ADD CONSTRAINT "tag_id_primary" PRIMARY KEY("ID");
+
 CREATE TABLE "Comment"(
     "ID" INT Identity NOT NULL,
     "PostID" INT NOT NULL,
@@ -45,19 +40,13 @@ CREATE TABLE "Post"(
     "UserID" INT NOT NULL,
     "NumOfLikes" INT NOT NULL,
     "Text" TEXT,
-    "Image" NVARCHAR(255) ,
+   
     "Title" NVARCHAR(255) NOT NULL,
     "TimeCreated" DATETIME NOT NULL
 );
 ALTER TABLE
     "Post" ADD CONSTRAINT "post_id_primary" PRIMARY KEY("ID");
-CREATE TABLE "TagsInPost"(
-    "ID" INT Identity NOT NULL,
-    "TagID" INT NOT NULL,
-    "PostID" INT NOT NULL
-);
-ALTER TABLE
-    "TagsInPost" ADD CONSTRAINT "tagsinpost_id_primary" PRIMARY KEY("ID");
+
 CREATE TABLE "Review"(
     "ID" INT Identity NOT NULL,
     "TopicID" INT NOT NULL,
@@ -92,8 +81,7 @@ ALTER TABLE
     "Post" ADD CONSTRAINT "post_topicid_foreign" FOREIGN KEY("TopicID") REFERENCES "Topic"("ID");
 ALTER TABLE
     "Review" ADD CONSTRAINT "review_topicid_foreign" FOREIGN KEY("TopicID") REFERENCES "Topic"("ID");
-ALTER TABLE
-    "TagsInPost" ADD CONSTRAINT "tagsinpost_tagid_foreign" FOREIGN KEY("TagID") REFERENCES "Tag"("ID");
+
 ALTER TABLE
     "Comment" ADD CONSTRAINT "comment_postid_foreign" FOREIGN KEY("PostID") REFERENCES "Post"("ID");
 ALTER TABLE
@@ -102,8 +90,7 @@ ALTER TABLE
     "Comment" ADD CONSTRAINT "comment_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
 ALTER TABLE
     "Post" ADD CONSTRAINT "post_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
-ALTER TABLE
-    "TagsInPost" ADD CONSTRAINT "tagsinpost_postid_foreign" FOREIGN KEY("PostID") REFERENCES "Post"("ID");
+
 ALTER TABLE
     "Review" ADD CONSTRAINT "review_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("ID");
     ALTER TABLE
