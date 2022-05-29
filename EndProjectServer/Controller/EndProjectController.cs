@@ -312,18 +312,18 @@ namespace EndProjectServer.Controller
         }
         [Route("CreatePost")]
         [HttpPost]
-        public void AddGame([FromBody] Post p)
+        public Post CreatePost([FromBody] Post p)
         {
             try
             {
-                context.CreatePost(p);
+                p = context.CreatePost(p);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return;
+                return p;
             }
             catch (Exception e)
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
-                return;
+                return null;
             }
         }
         [Route("LikePost")]
@@ -374,6 +374,23 @@ namespace EndProjectServer.Controller
 
             }
             catch(Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return false;
+            }
+        }
+        [Route("DeletePost")]
+        [HttpPost]
+        public bool DeletePost([FromBody] Post p)
+        {
+            try
+            {
+
+                context.DeletePost(p);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return true;
+            }
+            catch (Exception e)
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 return false;

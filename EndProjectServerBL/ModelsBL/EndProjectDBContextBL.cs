@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -137,16 +137,17 @@ namespace EndProjectServerBL.Models
             this.Reviews.Add(r);
             this.SaveChanges();
         }
-        public void CreatePost(Post p)
+        public Post CreatePost(Post p)
         {
-            this.Posts.Add(p);
+            this.Entry(p).State = EntityState.Added;
             this.SaveChanges();
+            return p;
         }
         public List<User> GetUsers()
         {
             try
             {
-                List<User> users = (List<User>)this.Users.OrderBy(x => x.Id);
+                List<User> users = (List<User>)this.Users.OrderBy(x => x.Id).ToList();
 
                 return users;
             }
@@ -203,6 +204,25 @@ namespace EndProjectServerBL.Models
                 return true;
             }
             catch( Exception e)
+            {
+                return false;
+            }
+        }
+        public bool DeletePost(Post p)
+        {
+            try
+            {
+                foreach(Comment c in p.Comments)
+                {
+                    this.Entry(c).State = EntityState.Deleted;
+                }
+                this.Entry(p).State = EntityState.Deleted;
+                this.SaveChanges();
+                var sourcePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", $"Post{p.Id}.jpg");
+                System.IO.File.Delete(sourcePath);
+                return true;
+            }
+            catch (Exception e)
             {
                 return false;
             }
