@@ -122,10 +122,11 @@ namespace EndProjectServerBL.Models
             this.SaveChanges();
         }
        
-        public void CreateGame(Topic t)
+        public Topic CreateGame(Topic t)
         {
-            this.Topics.Add(t);
+            this.Entry(t).State = EntityState.Added;
             this.SaveChanges();
+            return t;
         }
         public void AddComment(Comment c)
         {
@@ -215,6 +216,10 @@ namespace EndProjectServerBL.Models
                 foreach(Comment c in p.Comments)
                 {
                     this.Entry(c).State = EntityState.Deleted;
+                }
+                foreach (LikesInPost lp in p.LikesInPosts)
+                {
+                    this.Entry(lp).State = EntityState.Deleted;
                 }
                 this.Entry(p).State = EntityState.Deleted;
                 this.SaveChanges();

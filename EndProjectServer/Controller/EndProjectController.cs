@@ -141,18 +141,18 @@ namespace EndProjectServer.Controller
         
         [Route("AddGame")]
         [HttpPost]
-        public void AddGame([FromBody] Topic game)
+        public Topic AddGame([FromBody] Topic game)
         {
             try
             {
-                context.CreateGame(game);
+                Topic t = context.CreateGame(game);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return;
+                return t;
             }
             catch (Exception e)
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
-                return;
+                return null;
             }
         }
         [Route("AddComment")]
