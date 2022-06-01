@@ -161,6 +161,7 @@ namespace EndProjectServer.Controller
         {
             try
             {
+                comment.TimeCreated = DateTime.UtcNow;
                 context.AddComment(comment);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
@@ -177,6 +178,7 @@ namespace EndProjectServer.Controller
         {
             try
             {
+                review.TimeCreated = DateTime.UtcNow;
                 context.AddReview(review);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return;
@@ -220,6 +222,13 @@ namespace EndProjectServer.Controller
                 Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
                 return null;
             }
+        }
+        [Route("GetTime")]
+        [HttpGet]
+        public DateTime GetTime()
+        {
+            DateTime t = DateTime.UtcNow;
+            return t;
         }
         [Route("GetTopics")]
         [HttpGet]
@@ -316,6 +325,7 @@ namespace EndProjectServer.Controller
         {
             try
             {
+                p.TimeCreated = DateTime.UtcNow;
                 p = context.CreatePost(p);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return p;

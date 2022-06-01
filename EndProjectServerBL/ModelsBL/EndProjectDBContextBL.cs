@@ -124,9 +124,15 @@ namespace EndProjectServerBL.Models
        
         public Topic CreateGame(Topic t)
         {
-            this.Entry(t).State = EntityState.Added;
-            this.SaveChanges();
-            return t;
+            if (this.Topics.Where(x => x.Name == t.Name).FirstOrDefault() == null)
+            {
+                this.Entry(t).State = EntityState.Added;
+                this.SaveChanges();
+                return t;
+            }
+            else
+                return null;
+           
         }
         public void AddComment(Comment c)
         {
