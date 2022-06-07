@@ -15,7 +15,7 @@
   <ItemGroup>
     <Folder Include="DataBaseScripts\" />
     <Folder Include="DataBaseScripts\" />
-    <Folder Include="Wwwroot\images\" />
+    <Folder Include="Wwwroot\Images\" />
   </ItemGroup>
 
 </Project>

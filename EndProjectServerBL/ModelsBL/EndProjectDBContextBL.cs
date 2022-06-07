@@ -180,7 +180,7 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Review> reviews = (List<Review>)this.Reviews.Include(x => x.User).OrderBy(x => x.TimeCreated).ToList();
+                List<Review> reviews = (List<Review>)this.Reviews.Include(x => x.User).OrderByDescending(x => x.TimeCreated).ToList();
 
                 return reviews;
             }

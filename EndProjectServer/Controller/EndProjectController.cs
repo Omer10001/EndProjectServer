@@ -113,7 +113,7 @@ namespace EndProjectServer.Controller
                     LikesInPost likeInPost = likesInPosts.Where(x => x.PostId == p.Id && x.UserId == HttpContext.Session.GetObject<User>("theUser").Id).FirstOrDefault();
                     if(likeInPost ==null)
                     {
-                        likeInPost = new LikesInPost { PostId = p.Id, UserId = HttpContext.Session.GetObject<User>("theUser").Id, IsDisliked =false, IsLiked = false };
+                        likeInPost = new LikesInPost { PostId = p.Id, UserId = HttpContext.Session.GetObject<User>("theUser").Id, IsDisliked = false, IsLiked = false };
                         p.LikesInPosts.Add(likeInPost);
                         context.UpdateLikePost(p);
                     }
@@ -292,7 +292,7 @@ namespace EndProjectServer.Controller
                 foreach (Comment c in comments)
                 {
                     LikesInComment likeInComment = likesInComments.Where(x => x.CommentId == c.Id && x.UserId == HttpContext.Session.GetObject<User>("theUser").Id).FirstOrDefault();
-                    if (likeInComment == null)//maybe useless
+                    if (likeInComment == null)
                     {
                         likeInComment = new LikesInComment { CommentId = c.Id, UserId = HttpContext.Session.GetObject<User>("theUser").Id, IsDisliked = false, IsLiked = false };
                         c.LikesInComments.Add(likeInComment);
@@ -395,6 +395,8 @@ namespace EndProjectServer.Controller
         {
             try
             {
+                if (HttpContext.Session.GetObject<User>("theUser").IsAdmin != true)
+                    return false;
 
                 context.DeletePost(p);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
@@ -412,7 +414,7 @@ namespace EndProjectServer.Controller
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
             User user = HttpContext.Session.GetObject<User>("theUser");
-            //Check if user logged in and its ID is the same as the contact user ID
+          
             if (user != null)
             {
                 if (file == null)

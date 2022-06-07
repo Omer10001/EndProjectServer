@@ -36,7 +36,7 @@ namespace EndProjectServerBL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Comment>(entity =>
             {
@@ -191,8 +191,6 @@ namespace EndProjectServerBL.Models
                 entity.Property(e => e.AboutText)
                     .IsRequired()
                     .HasMaxLength(255);
-
-                entity.Property(e => e.Image).HasMaxLength(255);
 
                 entity.Property(e => e.Name)
                     .IsRequired()

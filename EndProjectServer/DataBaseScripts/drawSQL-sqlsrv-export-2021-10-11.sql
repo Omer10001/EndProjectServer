@@ -17,7 +17,6 @@ ALTER TABLE
 CREATE TABLE "Topic"(
     "ID" INT Identity NOT NULL,
     "Name" NVARCHAR(255) NOT NULL,
-    "Image" NVARCHAR(255),
     "AboutText" NVARCHAR(255) NOT NULL
 );
 ALTER TABLE

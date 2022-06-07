@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EndProjectServerBL.Models.Comment">
+    <Position X="3.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAEAQIAAAAgACQgAAAAAACAACAAAAAQ=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndProjectServerBL.Models.EndProjectDBContext">
+    <Position X="7" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABAEOAIAQAQgAAABBACCAAAMYFQAAAAAAgSAiAAIAQ=</HashCode>
+      <FileName>Models\EndProjectDBContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndProjectServerBL.Models.LikesInComment">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAEAAAAAAAAAAAAAAgABAAAAAAgAAAAAAAABAA=</HashCode>
+      <FileName>Models\LikesInComment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndProjectServerBL.Models.LikesInPost">
+    <Position X="9" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAEAAAAAAAgADAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Models\LikesInPost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndProjectServerBL.Models.Post">
+    <Position X="9" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAEAAQIAAAAgCAAEAAAAAAAAACCAAIAA=</HashCode>
+      <FileName>Models\Post.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndProjectServerBL.Models.Review">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAgAQAAAAAgCAAAAAAAAAAAACCAAAAA=</HashCode>
+      <FileName>Models\Review.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndProjectServerBL.Models.Topic">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Models\Topic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndProjectServerBL.Models.User">
+    <Position X="10.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAABAABAAAAAQACAEAAAACAAAEAAAAIAQ=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
