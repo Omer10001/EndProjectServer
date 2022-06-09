@@ -193,7 +193,7 @@ namespace EndProjectServerBL.Models
         {
             try
             {
-                List<Comment> comments = (List<Comment>)this.Comments.Include(x=>x.User).OrderBy(x => x.TimeCreated).ToList();
+                List<Comment> comments = (List<Comment>)this.Comments.Include(x=>x.User).OrderByDescending(x => x.TimeCreated).ToList();
 
                 return comments;
             }
