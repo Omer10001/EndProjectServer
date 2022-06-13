@@ -106,3 +106,6 @@ ALTER TABLE
 	
 	
 	Insert Into "User" VALUES ('a','b','c','11.10.2021', '1','0', '11.10.2021');
+    Insert INTO "Topic" ("Name", AboutText) VALUES('GTA 5', 'Grand Theft Auto V is a 2013 action-adventure game developed by Rockstar North and published by Rockstar Games. It is the seventh main entry in the Grand Theft Auto series, following 2008')
+     Insert INTO "Topic" ("Name", AboutText) VALUES('Minecraft','Minecraft is a sandbox video game developed by Mojang Studios')
+     Insert INTO "Topic" ("Name", AboutText) Values('Person 5','Persona 5 is a 2016 role-playing video game developed by Atlus. It is the sixth installment in the Persona series, which is part of the larger Megami Tensei franchise')
